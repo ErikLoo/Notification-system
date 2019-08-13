@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please provide us with more context information"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+
+    <include
+        layout="@layout/list_item_walking"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/list_item_height" />
+
+    <include
+        layout="@layout/list_item_showering"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/list_item_height" />
+
+    <include
+        layout="@layout/list_item_cooking"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/list_item_height" />
+
+    <include
+        layout="@layout/list_item_holding"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/list_item_height" />
+
+    <include
+        layout="@layout/list_item_looking"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/list_item_height" />
+
+    <include
+        layout="@layout/list_item_not_moving"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/list_item_height" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:background="@null"
+        android:text="Submit"
+        android:onClick="submitResults"
+        android:textColor="@color/colorPrimaryDark" />
+
+</LinearLayout>

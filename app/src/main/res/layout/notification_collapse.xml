@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:gravity="center"
+    android:layout_height="64dp">
+
+    <TextView
+        android:id="@+id/text_view_collapse1"
+        android:layout_width="wrap_content"
+        style="@style/TextAppearance.Compat.Notification.Title"
+        android:textColor="@color/colorPrimary"
+        android:text="New Message"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/text_view_collapse3"
+        android:layout_width="wrap_content"
+        style="@style/TextAppearance.Compat.Notification.Title"
+        android:text="Expand to show"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

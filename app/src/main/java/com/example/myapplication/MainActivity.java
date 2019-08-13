@@ -1,6 +1,9 @@
 package com.example.myapplication;
 
 import android.app.Notification;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.media.MediaDrm;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,6 +15,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.RemoteViews;
 
 import static com.example.myapplication.App.CHANNEL_1_ID;
 import static com.example.myapplication.App.CHANNEL_2_ID;
@@ -29,14 +33,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         notificationManager = NotificationManagerCompat.from(this);
 
@@ -69,16 +65,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sendOnChannel1(View v){
-        String title = editTextTitle.getText().toString();
-        String message = editTextMessage.getText().toString();
+//        String title = editTextTitle.getText().toString();
+//        String message = editTextMessage.getText().toString();
 
+        RemoteViews collapsedView = new RemoteViews(getPackageName(),R.layout.notification_collapse);
+        RemoteViews ExpandedView = new RemoteViews(getPackageName(),R.layout.notification_expand);
+
+        collapsedView.setTextViewText(R.id.text_view_collapse1,"hello");
+
+        Intent clickIntent = new Intent(this,NotificationReceiver.class);
+        PendingIntent clickPendingIntent = PendingIntent.getBroadcast(this,0,clickIntent,0);
+
+        ExpandedView.setOnClickPendingIntent(R.id.image_view_expand,clickPendingIntent);
 
         Notification notification = new NotificationCompat.Builder(this,CHANNEL_1_ID)
                 .setSmallIcon(R.drawable.ic_one)
-                .setContentTitle(title)
-                .setContentText(message)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .setCustomContentView(collapsedView)
+                .setCustomBigContentView(ExpandedView)
+                .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
                 .build();
 
         notificationManager.notify(1,notification);
@@ -86,14 +90,26 @@ public class MainActivity extends AppCompatActivity {
 
     public void sendOnChannel2(View v){
         String title = editTextTitle.getText().toString();
-        String message = editTextMessage.getText().toString();
+        String message = "Thank you for your feedback";
 
+        RemoteViews SelectView = new RemoteViews(getPackageName(),R.layout.notification_select); //this is my custom laytout
+
+        //This Intent is for broadcasting the toast message
+        Intent broadCastIntent = new Intent(this,NotificationReceiver.class);
+        broadCastIntent.putExtra("toastMessage",message);
+        PendingIntent actionIntent = PendingIntent.getBroadcast(this,0,broadCastIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+
+        //This intent opens the gatherFeedback activity
+        Intent activityIntent = new Intent(this,gatherFeedback.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(this,0,activityIntent,0);
+
+        SelectView.setOnClickPendingIntent(R.id.yes_button,actionIntent);
+        SelectView.setOnClickPendingIntent(R.id.no_button,contentIntent);
 
         Notification notification = new NotificationCompat.Builder(this,CHANNEL_2_ID)
                 .setSmallIcon(R.drawable.ic_two)
-                .setContentTitle(title)
-                .setContentText(message)
-                .setPriority(NotificationCompat.PRIORITY_LOW)
+                .setCustomContentView(SelectView)
+                .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
                 .build();
 
         notificationManager.notify(2,notification);

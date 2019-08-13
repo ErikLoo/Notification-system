@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="256dp">
+
+    <TextView
+        android:id="@+id/text_view_expand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:padding="8dp"
+        android:background="@color/colorAccent"
+        android:textColor="@color/colorPrimaryDark"
+        style = "@style/TextAppearance.Compat.Notification"
+        android:text="This is expanded view"/>
+
+    <ImageView
+        android:id="@+id/image_view_expand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src = "@drawable/cat"
+        />
+
+</LinearLayout>
